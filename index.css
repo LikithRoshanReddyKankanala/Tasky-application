@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: rgba(0, 255, 255, 0.799);
+    background-color: rgba(0, 255, 255, 0.989);
 }
 
 .Add_new_btn_mobile_only {
@@ -13,7 +13,7 @@ body {
     bottom: 0%;
     right: 0%;
     padding: 15px 12px;
-    background-color: aliceblue;
+    background-color: rgb(84, 223, 238);
     width: 100%;
     z-index: 3;
 

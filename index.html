@@ -14,6 +14,7 @@
     <button class = "btn btn-primary d-flex align-items-between gap-2" type ="submit" data-bs-toggle="modal" data-bs-target="#AddnewModal">
     <i class="fa-light fa-plus mr-4 "></i>Add new item
   </div>
+  <!--Open task model-->
 
   <!-- Modal -->
 <div class="modal fade" id="AddnewModal" tabindex="-1" aria-labelledby="AddnewModalLabel" aria-hidden="true">
@@ -27,7 +28,7 @@
         <form>
           <!--img-->
           <div class="mb-3">
-            <label for="image url" class="form label">image url</label>
+            <label for="image url" class="form-label">image url</label>
             <input
             type="url"
             class="form-control"
@@ -36,17 +37,44 @@
             placeholder="htttp://likithroshan.com/image.jpg"
             />
           </div>
+
           <!--Title-->
           <div class="mb-3">
-            <label for="Task title" class="form label">Task title</label>
+            <label for="Task title" class="form-label">Task title</label>
             <input
             type="url"
             class="form-control"
             id="Task title"
             aria-describedby="imageDesc"
             placeholder="Task title!"
+            required
             />
           </div>
+
+          <!--Task type-->
+          <div class="mb-3">
+            <label for="tags" class="form-label">Task Type</label>
+            <input
+            type="text"
+            class="form-control"
+            id="tags"
+            placeholder="Task Type!"
+            required
+          />
+          </div>
+          <!--Task description-->
+          <div class="mb-3">
+            <label for="TaskDescription" class="form-label">Task Description</label>
+            <textarea
+            type="text"
+            class="form-control"
+            id="TaskDescription"
+            placeholder="Task Description!"
+            required
+            rows="4"
+            ></textarea>
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -94,7 +122,15 @@
           </div>
         </section>
 
-      </div>
+      
+
+      <!--cards section-->
+      <section class="mt-3">
+        <div class="row task__contents">
+          <h1>this is cards section </h1>
+        </div>
+      </section>
+    </div>
       
 
     <!----SCRIPTS----->

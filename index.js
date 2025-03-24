@@ -24,17 +24,20 @@ const htmlTaskContent = ({id, title, description, type, url }) => `
       </div>
       <div class='card-body'>
         ${
-          url &&
-          `<img width='100%' src=${url} alt='Card Image' class='card-img-top md-3 rounded-lg' />`
+          // url &&
+          // `<img width='100%' src=${url} alt='Card Image' class='card-img-top md-3 rounded-lg' />`
+          url
+          ?`<img width='100%' src=${url} alt='Card Image' class='card-img-top md-3 rounded-lg' />`
+          :`<img width='100%' src=${ /workspaces/Tasky-application/collection3.jpg}  alt='Card Image' class='card-img-top md-3 rounded-lg' />`
         }
         <h4 class='card=title task__card__title'>${title}</h4>
         <p class='description trim-3-lines text-muted'>${description}</p>
         <div class='tags text-white d-flex flex-wrap'>
-          <span> class='badge bg-primary m-1'${type}</span>
+          <span class='badge bg-primary m-1'>${type}</span>
       </div>
     </div>
     <div class='card-footer'>
-          <button type='button' class='btn btn-outline-primary float-right' data-bs-toggle="modal" data-bs-target="#showTask">Open Task</button>
+          <button type='button' class='btn btn-outline-primary float-right' data-bs-toggle="modal" data-bs-target="#showTask" onclick='opentask.apply(this, arguments)' id=${id}>Open Task</button>
     </div>
   </div>
 </div>  
@@ -95,9 +98,9 @@ const handleSubmit = (event) => {
     type: document.getElementById("tags").value,
     description: document.getElementById("taskDescription").value,
   };
-  //if (input.title === " " || input.type === " " || input.description === " ") {
-  //  return alert("Please fill the necessary fields :-)");
-  //}
+  if (input.title === " " || input.type === " " || input.description === " ") {
+    return alert("Please fill the necessary fields :-)");
+  }
 
 
   //taskContents.innerAdjacentHTML(
@@ -119,7 +122,7 @@ const openTask = (e) => {
 
 //delete task
 const deletetask = (e) => {
-  if (!e) e = window.event;
+  if (!e) e = window.Event;
 
   
 }

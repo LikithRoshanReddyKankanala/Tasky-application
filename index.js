@@ -18,7 +18,7 @@ const htmlTaskContent = ({id, title, description, type, url }) => `
          <button type='button' class='btn btn-outline-info mr-1.5' name= '${id}'> 
               <i class='fas fa-pencil-alt name=${id}'></i>
          </button>
-         <button type='button' class='btn btn-outline-danger mr-1.5' name='${id}'> 
+         <button type='button' class='btn btn-outline-danger mr-1.5' name='${id}' onclick='deletetask.apply(this, arguments)'> 
               <i class='fas fa-trash-alt name=${id}'></i>
          </button>
       </div>

@@ -3,6 +3,7 @@ const state = {
 };
 
 //DOM Opertaions
+//query selector is used for converting json to html (or) JS to HTML.
 const taskContents = document.querySelector(".task__contents");
 const taskModal = document.querySelector(".task__modal__body");
 
@@ -67,3 +68,58 @@ const updateLocalstorage = () => {
 
 //Load Initialgit 
 
+const loadInitialData = () => {
+  const localStoragecopy = JSON.parse(localStorage.task);
+
+  if (localStoragecopy) state.tasklist = localStoragecopy.tasks;
+
+  state.taskList.map((cardDate) => {
+    taskContents.insertAdjacentHTML("beforeend", htmlTaskContent(cardDate));
+  });
+};
+
+
+/*
+var date = new Date();
+console.log(Date.now());
+VM214:2 1742719784682 --> always you get a new id. So, we get store the date as an ID always
+ */
+//when we update or when we edit .. we need to save
+
+const handleSubmit = (event) => {
+  //console.log("event triggered")
+  const id = `${date.now()}`;
+  const input = {
+    url: document.getElementById("imageUrl").value,
+    title: document.getElementById("taskTitle").value,
+    type: document.getElementById("tags").value,
+    description: document.getElementById("taskDescription").value,
+  };
+  //if (input.title === " " || input.type === " " || input.description === " ") {
+  //  return alert("Please fill the necessary fields :-)");
+  //}
+
+
+  //taskContents.innerAdjacentHTML(
+
+  taskContents.insertAdjacentHTML( "beforeend", htmlTaskContent({...input, id }));
+  state.tasklist.push({  ...input, id});
+
+  updateLocalstorage();
+};
+
+//Opentask
+
+const openTask = (e) => {
+  if (!e) e = window.Event;
+
+  const getTask = state.tasklist.find(({  id  }) => id === e.target.id);
+  taskModal.innerHTML = htmlModalCOntent(getTask);
+};
+
+//delete task
+const deletetask = (e) => {
+  if (!e) e = window.event;
+
+  
+}

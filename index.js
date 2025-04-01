@@ -52,7 +52,8 @@ const htmlModalContent = ({id, title, description, url }) => {
   ${
     // url &&
     // `<img width='100%' src=${url} alt='Card Image' class='img-fluid place__holder__image mb-3' />`
-    ? `<img width='100%` src=${url} alt='Card Image' class='card-img-top md-3 rounded-lg'  />`
+    url
+    ? `<img width='100%' src=${url} alt='Card Image' class='card-img-top md-3 rounded-lg'  />`
     : `<img width='100%' src="https://tse1.mm.bing.net/th?id=OIP.F00dCf4bXxX0J-qEEf4qIQHaD6&pid=Api&rs=1&c=1&qlt=95&w=223&h=117" alt='Card Image' class='card-img-top md-3 rounded-lg' />`
   }
   <strong class='text-muted text-sm'>Created on: ${date.toDateString()}</strong>
@@ -64,7 +65,7 @@ const htmlModalContent = ({id, title, description, url }) => {
 
 const updateLocalstorage = () => {
   localStorage.setItem(
-    "tasky",
+    "task",
     //method to convert json to string
     JSON.stringify({
       tasks: state.taskList,
@@ -105,7 +106,6 @@ const handleSubmit = (event) => {
     return alert("Please fill the necessary fields :-)");
   }
 
-
   //taskContents.innerAdjacentHTML(
 
   taskContents.insertAdjacentHTML( "beforeend", htmlTaskContent({...input, id }));
@@ -127,5 +127,27 @@ const openTask = (e) => {
 const deletetask = (e) => {
   if (!e) e = window.Event;
 
+  const targetId = e.target.getAttribute("name");
+  const type = e.target.tagName;
+  const removeTask = state.taskList.filter(({ id }) => id !== targetId);
+  updateLocalstorage();
+
+  if (type === "BUTTON") {
+
+    return e.target.parentNode.parentNode.parentNode.parentNode.removeChild(
+      e.target.parentNode.parentNode.parentNode
+    );
+  } else if (type === "I") {
+    return e.target.parentNode.parentNode.parentNode.parentNode.parentNode.removeChild(
+      e.target.parentNode.parentNode.parentNode.parentNode
+    );
+  }
+};
+
+//edit task
+const editTask = (e) => {
+  if (!e) e - window.event;
   
 }
+
+  

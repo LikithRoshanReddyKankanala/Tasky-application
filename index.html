@@ -22,21 +22,24 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="AddnewModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="AddnewModalLabel">Add New Task</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form onsubmit="return false">
           <!--img-->
           <div class="mb-3">
-            <label for="image url" class="form-label">image url</label>
+            <label for="imageurl" class="form-label">image URL</label>
             <input
             type="url"
             class="form-control"
-            id="image url"
+            id="imageUrl"
             aria-describedby="imageDesc"
-            placeholder="htttp://likithroshan.com/image.jpg"
+            placeholder="http://likithroshan.com/image.jpg"
             />
+            <div id="imageDesc" class="form-text">
+              Its a optional file for you...
+            </div>
           </div>
 
           <!--Title-->

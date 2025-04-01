@@ -4,8 +4,9 @@ const state = {
 
 //DOM Opertaions
 //query selector is used for converting json to html (or) JS to HTML.
-const taskContents = document.querySelector(".task__contents");
 const taskModal = document.querySelector(".task__modal__body");
+const taskContents = document.querySelector(".task__contents");
+
 
 //console.log(taskContents);
 //console.lod(taskModal);
@@ -15,10 +16,10 @@ const htmlTaskContent = ({id, title, description, type, url }) => `
     <div class='card shadow-sm task__card'>
 
       <div class='card-header d-flex justify-content-end task__card__header'>
-         <button type='button' class='btn btn-outline-info mr-1.5' name= '${id}'> 
+         <button type='button' class='btn btn-outline-info mr-1.5' name= ${id}> 
               <i class='fas fa-pencil-alt name=${id}'></i>
          </button>
-         <button type='button' class='btn btn-outline-danger mr-1.5' name='${id}' onclick='deletetask.apply(this, arguments)'> 
+         <button type='button' class='btn btn-outline-danger mr-1.5' name=${id} onclick="deletetask.apply(this, arguments)"> 
               <i class='fas fa-trash-alt name=${id}'></i>
          </button>
       </div>
@@ -45,12 +46,14 @@ const htmlTaskContent = ({id, title, description, type, url }) => `
 
 // Modal Body on >> clk of Open Task
 const htmlModalContent = ({id, title, description, url }) => {
-  const date = new Date(parseInt(Id));
+  const date = new Date(parseInt(id));
   return `
   <div id=${id}>
   ${
-    url &&
-    `<img width='100%' src=${url} alt='Card Image' class='img-fluid place__holder__image mb-3' />`
+    // url &&
+    // `<img width='100%' src=${url} alt='Card Image' class='img-fluid place__holder__image mb-3' />`
+    ? `<img width='100%` src=${url} alt='Card Image' class='card-img-top md-3 rounded-lg'  />`
+    : `<img width='100%' src="https://tse1.mm.bing.net/th?id=OIP.F00dCf4bXxX0J-qEEf4qIQHaD6&pid=Api&rs=1&c=1&qlt=95&w=223&h=117" alt='Card Image' class='card-img-top md-3 rounded-lg' />`
   }
   <strong class='text-muted text-sm'>Created on: ${date.toDateString()}</strong>
   <h2 class='my-3'>${title}</h2>

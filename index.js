@@ -1,5 +1,5 @@
 const state = {
-    taskList: []
+    tasklist: []
 };
 
 //DOM Opertaions
@@ -31,7 +31,7 @@ const htmlTaskContent = ({id, title, description, type, url }) => `
           ?`<img width='100%' src=${url} alt='Card Image' class='card-img-top md-3 rounded-lg' />`
           :`<img width='100%' src=${ /workspaces/Tasky-application/collection3.jpg}  alt='Card Image' class='card-img-top md-3 rounded-lg' />`
         }
-        <h4 class='card=title task__card__title'>${title}</h4>
+        <h4 class='card-title task__card__title'>${title}</h4>
         <p class='description trim-3-lines text-muted'>${description}</p>
         <div class='tags text-white d-flex flex-wrap'>
           <span class='badge bg-primary m-1'>${type}</span>
@@ -78,7 +78,7 @@ const updateLocalstorage = () => {
 const loadInitialData = () => {
   const localStoragecopy = JSON.parse(localStorage.task);
 
-  if (localStoragecopy) state.tasklist = localStoragecopy.tasks;
+  if (localStoragecopy) state.taskList = localStoragecopy.tasks;
 
   state.taskList.map((cardDate) => {
     taskContents.insertAdjacentHTML("beforeend", htmlTaskContent(cardDate));
@@ -95,7 +95,7 @@ VM214:2 1742719784682 --> always you get a new id. So, we get store the date as 
 
 const handleSubmit = (event) => {
   //console.log("event triggered")
-  const id = `${date.now()}`;
+  const id = `${Date.now()}`;
   const input = {
     url: document.getElementById("imageUrl").value,
     title: document.getElementById("taskTitle").value,
@@ -109,18 +109,18 @@ const handleSubmit = (event) => {
   //taskContents.innerAdjacentHTML(
 
   taskContents.insertAdjacentHTML( "beforeend", htmlTaskContent({...input, id }));
-  state.tasklist.push({  ...input, id});
+  state.taskList.push({  ...input, id});
 
   updateLocalstorage();
 };
 
 //Opentask
 
-const openTask = (e) => {
+const opentask = (e) => {
   if (!e) e = window.Event;
 
-  const getTask = state.tasklist.find(({  id  }) => id === e.target.id);
-  taskModal.innerHTML = htmlModalCOntent(getTask);
+  const getTask = state.taskList.find(({  id  }) => id === e.target.id);
+  taskModal.innerHTML = htmlModalContent(getTask);
 };
 
 //delete task

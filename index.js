@@ -1,5 +1,5 @@
-const state = {
-    tasklist: []
+// const state = {
+  taskList: []
 };
 
 //DOM Opertaions
@@ -11,7 +11,7 @@ const taskContents = document.querySelector(".task__contents");
 //console.log(taskContents);
 //console.lod(taskModal);
 
-const htmlTaskContent = ({id, title, description, type, url }) => `
+const htmlTaskContent = ({id, title, description, type, url }) => 
   <div class="col-md-6 col-lg-4 mt-3" key='${id}' >
     <div class='card shadow-sm task__card'>
 
@@ -26,12 +26,12 @@ const htmlTaskContent = ({id, title, description, type, url }) => `
       <div class='card-body'>
         ${
           // url &&
-          // `<img width='100%' src=${url} alt='Card Image' class='card-img-top md-3 rounded-lg' />`
+          // <img width='100%' src=${url} alt='Card Image' class='card-img-top md-3 rounded-lg' />
           url
-          ?`<img width='100%' src=${url} alt='Card Image' class='card-img-top md-3 rounded-lg' />`
-          :`<img width='100%' src=${ /workspaces/Tasky-application/collection3.jpg}  alt='Card Image' class='card-img-top md-3 rounded-lg' />`
+          ?<img width='100%' src=${url} alt='Card Image' class='card-img-top md-3 rounded-lg' />
+          :<img width='100%' src=${ /workspaces/Tasky-application/collection3.jpg}  alt='Card Image' class='card-img-top md-3 rounded-lg' />
         }
-        <h4 class='card-title task__card__title'>${title}</h4>
+        <h4 class='card=title task__card__title'>${title}</h4>
         <p class='description trim-3-lines text-muted'>${description}</p>
         <div class='tags text-white d-flex flex-wrap'>
           <span class='badge bg-primary m-1'>${type}</span>
@@ -42,25 +42,25 @@ const htmlTaskContent = ({id, title, description, type, url }) => `
     </div>
   </div>
 </div>  
-`;
+;
 
 // Modal Body on >> clk of Open Task
 const htmlModalContent = ({id, title, description, url }) => {
   const date = new Date(parseInt(id));
-  return `
+  return 
   <div id=${id}>
   ${
     // url &&
-    // `<img width='100%' src=${url} alt='Card Image' class='img-fluid place__holder__image mb-3' />`
+    // <img width='100%' src=${url} alt='Card Image' class='img-fluid place__holder__image mb-3' />
     url
-    ? `<img width='100%' src=${url} alt='Card Image' class='card-img-top md-3 rounded-lg'  />`
-    : `<img width='100%' src="https://tse1.mm.bing.net/th?id=OIP.F00dCf4bXxX0J-qEEf4qIQHaD6&pid=Api&rs=1&c=1&qlt=95&w=223&h=117" alt='Card Image' class='card-img-top md-3 rounded-lg' />`
+    ? <img width='100%' src=${url} alt='Card Image' class='card-img-top md-3 rounded-lg'  />
+    : <img width='100%' src="https://tse1.mm.bing.net/th?id=OIP.F00dCf4bXxX0J-qEEf4qIQHaD6&pid=Api&rs=1&c=1&qlt=95&w=223&h=117" alt='Card Image' class='card-img-top md-3 rounded-lg' />
   }
   <strong class='text-muted text-sm'>Created on: ${date.toDateString()}</strong>
   <h2 class='my-3'>${title}</h2>
   <p class='text-muted'>${description}</P>
   </div>
-  `;
+  ;
 };
 
 const updateLocalstorage = () => {
@@ -78,7 +78,7 @@ const updateLocalstorage = () => {
 const loadInitialData = () => {
   const localStoragecopy = JSON.parse(localStorage.task);
 
-  if (localStoragecopy) state.taskList = localStoragecopy.tasks;
+  if (localStoragecopy) state.tasklist = localStoragecopy.tasks;
 
   state.taskList.map((cardDate) => {
     taskContents.insertAdjacentHTML("beforeend", htmlTaskContent(cardDate));
@@ -95,7 +95,7 @@ VM214:2 1742719784682 --> always you get a new id. So, we get store the date as 
 
 const handleSubmit = (event) => {
   //console.log("event triggered")
-  const id = `${Date.now()}`;
+  const id = ${date.now()};
   const input = {
     url: document.getElementById("imageUrl").value,
     title: document.getElementById("taskTitle").value,
@@ -109,18 +109,18 @@ const handleSubmit = (event) => {
   //taskContents.innerAdjacentHTML(
 
   taskContents.insertAdjacentHTML( "beforeend", htmlTaskContent({...input, id }));
-  state.taskList.push({  ...input, id});
+  state.tasklist.push({  ...input, id});
 
   updateLocalstorage();
 };
 
 //Opentask
 
-const opentask = (e) => {
+const openTask = (e) => {
   if (!e) e = window.Event;
 
-  const getTask = state.taskList.find(({  id  }) => id === e.target.id);
-  taskModal.innerHTML = htmlModalContent(getTask);
+  const getTask = state.tasklist.find(({  id  }) => id === e.target.id);
+  taskModal.innerHTML = htmlModalCOntent(getTask);
 };
 
 //delete task
@@ -149,5 +149,3 @@ const editTask = (e) => {
   if (!e) e - window.event;
   
 }
-
-  

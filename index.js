@@ -11,8 +11,9 @@ const taskContents = document.querySelector(".task__contents");
 //console.log(taskContents);
 //console.lod(taskModal);
 
-const htmlTaskContent = ({id, title, description, type, url }) => 
-  <div class="col-md-6 col-lg-4 mt-3" key='${id}' >
+//template for the card on screen
+const htmlTaskContent = ({id, title, description, type, url }) =>` 
+  <div class="col-md-6 col-lg-4 mt-3" key='${id}'>
     <div class='card shadow-sm task__card'>
 
       <div class='card-header d-flex justify-content-end task__card__header'>
@@ -28,8 +29,8 @@ const htmlTaskContent = ({id, title, description, type, url }) =>
           // url &&
           // <img width='100%' src=${url} alt='Card Image' class='card-img-top md-3 rounded-lg' />
           url
-          ?<img width='100%' src="${url}" alt='Card Image' class='card-img-top md-3 rounded-lg' />
-          :<img width='100%' src="https://plus.unsplash.com/premium_photo-1686777542997-b48271320758?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dGFraW5nJTIwcGhvdG98ZW58MHx8MHx8fDA%3D" alt='Card Image' class='card-img-top md-3 rounded-lg' />
+          ? `<img width='100%' src="${url}" alt='Card Image' class='card-img-top md-3 rounded-lg' />`
+          : `<img width='100%' src="https://plus.unsplash.com/premium_photo-1686777542997-b48271320758?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dGFraW5nJTIwcGhvdG98ZW58MHx8MHx8fDA%3D" alt='Card Image' class='card-img-top md-3 rounded-lg' />`
         }
         <h4 class='card=title task__card__title'>${title}</h4>
         <p class='description trim-3-lines text-muted'>${description}</p>
@@ -42,7 +43,7 @@ const htmlTaskContent = ({id, title, description, type, url }) =>
     </div>
   </div>
 </div>  
-;
+`;
 
 // Modal Body on >> clk of Open Task
 const htmlModalContent = ({id, title, description, url }) => {
@@ -50,17 +51,16 @@ const htmlModalContent = ({id, title, description, url }) => {
   return `
   <div id='${id}'>
   ${
-    // url &&
+    url 
     // <img width='100%' src=${url} alt='Card Image' class='img-fluid place__holder__image mb-3' />
-    url
-    ? <img width='100%' src='${url}' alt='Card Image' class='card-img-top md-3 rounded-lg'  />
-    : <img width='100%' src="https://tse1.mm.bing.net/th?id=OIP.F00dCf4bXxX0J-qEEf4qIQHaD6&pid=Api&rs=1&c=1&qlt=95&w=223&h=117" alt='Card Image' class='card-img-top md-3 rounded-lg' />
+    ? `<img width='100%' src=${url} alt='Card Image' class='card-img-top md-3 rounded-lg'  />`
+    : `<img width='100%' src="https://tse1.mm.bing.net/th?id=OIP.F00dCf4bXxX0J-qEEf4qIQHaD6&pid=Api&rs=1&c=1&qlt=95&w=223&h=117" alt='Card Image' class='card-img-top md-3 rounded-lg' />`
   }
   <strong class='text-muted text-sm'>Created on: ${date.toDateString()}</strong>
   <h2 class='my-3'>${title}</h2>
   <p class='text-muted'>${description}</P>
   </div>
- ` ;
+  `;
 };
 
 const updateLocalstorage = () => {
@@ -76,9 +76,9 @@ const updateLocalstorage = () => {
 //Load Initialgit 
 
 const loadInitialData = () => {
-  const localStoragecopy = JSON.parse(localStorage.task);
+  const localStorageCopy = JSON.parse(localStorage.task);
 
-  if (localStoragecopy) state.tasklist = localStoragecopy.tasks;
+  if (localStorageCopy) state.tasklist = localStorageCopy.tasks;
 
   state.taskList.map((cardDate) => {
     taskContents.insertAdjacentHTML("beforeend", htmlTaskContent(cardDate));
@@ -94,25 +94,28 @@ VM214:2 1742719784682 --> always you get a new id. So, we get store the date as 
 //when we update or when we edit .. we need to save
 
 const handleSubmit = (event) => {
-  //console.log("event triggered")
-  const id = `${date.now()}`;
+  // console.log("event triggerd");
+  const id = `${Date.now()}`;
   const input = {
     url: document.getElementById("imageUrl").value,
     title: document.getElementById("taskTitle").value,
     type: document.getElementById("tags").value,
     description: document.getElementById("taskDescription").value,
   };
-  if (input.title === " " || input.type === " " || input.description === " ") {
-    return alert("Please fill the necessary fields :-)");
+  if (input.title === "" || input.type === "" || input.description === "") {
+    return alert("Please fill all the necessary fiels :-)");
   }
 
-  //taskContents.innerAdjacentHTML(
+  // taskContents.innerAdjacentHTML(
+  taskContents.insertAdjacentHTML(
+    "beforeend",
+    htmlTaskContent({ ...input, id })
+  );
+  state.taskList.push({ ...input, id });
 
-  taskContents.insertAdjacentHTML( "beforeend", htmlTaskContent({...input, id }));
-  state.tasklist.push({  ...input, id});
-
-  updateLocalstorage();
+  updateLocalStorage();
 };
+
 
 //Opentask
 
@@ -147,4 +150,68 @@ const deletetask = (e) => {
 //edit task
 const editTask = (e) => {
   if (!e) e - window.event;
+  const targetId = e.target.id;
+  const type = e.target.tagName;
+
+  let parentNode;
+  let taskTitle;
+  let taskDescription;
+  let tasktype;
+  let submitButton;
+
+  if(type === "Button") {
+    parentNode = e.target.parentNode.parentNode;
+  } else {
+    parentNode = e.target.parentNode.parentNode.parentNode;
+  }
+
+  taskTitle = parentNode.childNodes[3].childNodes[3];
+  taskDescription = parentNode.childNodes[3].childNodes[5];
+  tasktype = parentNode.childNodes[3].childNodes[7].childNodes[1];
+  submitButton = parentNode.childNodes[5].childNodes[1];
+
+  taskTitle.setAttribute("contenteditable", "true");
+  taskDescription.setAttribute("contendeditable", "true");
+  taskType.setAttribute("contenteditable", "true");
+
+  submitButton.setAttribute("onclick", "saveEdit.apply(this, arguments)");
+  submitButton.removeAttribute("data-bs-toggle");
+  submitButton.removeAttribute("data-bs-target");
+  submitButton.innerHTML = "Save Changes";
+};
+
+//Save edit
+const saveedit = (e) => {
+  if (!e) e - window.event;
+
+  const targetId = e.target.id;
+  const parentNode = e.target.parentNode.parentNode;
+  //console.log(parentNode.childNodes)
+
+  const taskTitle = parentNode.childNodes[3].childNodes[3];
+  const taskDescription = parentNode.childNodes[3].child[5];
+  const taskType = parentNode.childNodes[3].child[7].childNodes[1];
+  const submitButton = parentNode.childNodes[5].child[1];
+
+  const updateData = {
+    taskTitle: taskTitle.innerHTML,
+    taskDescription: taskDescription.innerHTML,
+    taskType: taskType.innerHTML,
+  };
+  let stateCopy = state.taskList;
+
+  stateCopy = stateCopy.map((task) => 
+    task.id === targetId
+  ? {
+    id: task.id,
+    title: updateData.taskTitle,
+    description: updateData.taskDescription,
+    type: update
+  }
+  );
+    
+       
+
+  
+  
 }
